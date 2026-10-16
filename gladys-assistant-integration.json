@@ -1,0 +1,701 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "August / Yale",
+  "description": {
+    "en": "August and Yale smart locks and video doorbells, through the August / Yale cloud.",
+    "fr": "Serrures connectées et sonnettes vidéo August et Yale, via le cloud August / Yale.",
+    "de": "Smarte Schlösser und Video-Türklingeln von August und Yale über die August-/Yale-Cloud.",
+    "es": "Cerraduras inteligentes y videoporteros August y Yale, a través de la nube August / Yale."
+  },
+  "version": "0.0.0",
+  "docker_image": "ghcr.io/gboulvin/gladys-august-yale:0.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/gboulvin/Gladys-August-Yale/main/cover.png",
+  "categories": ["security"],
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Your August / Yale account",
+        "fr": "Votre compte August / Yale",
+        "de": "Ihr August-/Yale-Konto",
+        "es": "Su cuenta August / Yale"
+      },
+      "description": {
+        "en": "Use the account of the August, Yale Access or Yale Home app. On the first connection, the cloud sends you a verification code by e-mail or SMS: enter it with the \"Validate the code\" action below. A Wi-Fi bridge (August Connect, Yale Connect) or a Wi-Fi lock is needed to see the state live and to operate the lock from Gladys.",
+        "fr": "Utilisez le compte de l'application August, Yale Access ou Yale Home. À la première connexion, le cloud vous envoie un code de vérification par e-mail ou SMS : saisissez-le avec l'action « Valider le code » ci-dessous. Un pont Wi-Fi (August Connect, Yale Connect) ou une serrure Wi-Fi est nécessaire pour suivre l'état en direct et piloter la serrure depuis Gladys.",
+        "de": "Verwenden Sie das Konto der App August, Yale Access oder Yale Home. Bei der ersten Verbindung sendet Ihnen die Cloud einen Bestätigungscode per E-Mail oder SMS: Geben Sie ihn unten mit der Aktion „Code bestätigen“ ein. Eine WLAN-Bridge (August Connect, Yale Connect) oder ein WLAN-Schloss ist nötig, um den Zustand live zu sehen und das Schloss über Gladys zu steuern.",
+        "es": "Utilice la cuenta de la app August, Yale Access o Yale Home. En la primera conexión, la nube le envía un código de verificación por correo o SMS: introdúzcalo con la acción «Validar el código» de abajo. Se necesita un puente Wi-Fi (August Connect, Yale Connect) o una cerradura Wi-Fi para ver el estado en directo y controlar la cerradura desde Gladys."
+      },
+      "links": [
+        {
+          "url": "https://august.com/pages/app",
+          "label": {
+            "en": "The August app",
+            "fr": "L'application August",
+            "de": "Die August-App",
+            "es": "La app August"
+          }
+        },
+        {
+          "url": "https://www.yalehome.com/",
+          "label": {
+            "en": "Yale Home",
+            "fr": "Yale Home",
+            "de": "Yale Home",
+            "es": "Yale Home"
+          }
+        }
+      ]
+    },
+    {
+      "key": "brand",
+      "type": "select",
+      "label": { "en": "App", "fr": "Application", "de": "App", "es": "Aplicación" },
+      "description": {
+        "en": "The app your locks are registered in.",
+        "fr": "L'application dans laquelle vos serrures sont enregistrées.",
+        "de": "Die App, in der Ihre Schlösser registriert sind.",
+        "es": "La app en la que están registradas sus cerraduras."
+      },
+      "required": true,
+      "default": "august",
+      "options": [
+        {
+          "value": "august",
+          "label": { "en": "August", "fr": "August", "de": "August", "es": "August" }
+        },
+        {
+          "value": "yale_access",
+          "label": {
+            "en": "Yale Access (North America)",
+            "fr": "Yale Access (Amérique du Nord)",
+            "de": "Yale Access (Nordamerika)",
+            "es": "Yale Access (Norteamérica)"
+          }
+        },
+        {
+          "value": "yale_home",
+          "label": {
+            "en": "Yale Home (Europe and rest of the world)",
+            "fr": "Yale Home (Europe et reste du monde)",
+            "de": "Yale Home (Europa und übrige Welt)",
+            "es": "Yale Home (Europa y resto del mundo)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "login_method",
+      "type": "select",
+      "label": {
+        "en": "Login method",
+        "fr": "Méthode de connexion",
+        "de": "Anmeldemethode",
+        "es": "Método de inicio de sesión"
+      },
+      "required": true,
+      "default": "email",
+      "options": [
+        {
+          "value": "email",
+          "label": { "en": "E-mail", "fr": "E-mail", "de": "E-Mail", "es": "Correo electrónico" }
+        },
+        {
+          "value": "phone",
+          "label": {
+            "en": "Phone number",
+            "fr": "Numéro de téléphone",
+            "de": "Telefonnummer",
+            "es": "Número de teléfono"
+          }
+        }
+      ]
+    },
+    {
+      "key": "username",
+      "type": "string",
+      "label": {
+        "en": "E-mail or phone number",
+        "fr": "E-mail ou numéro de téléphone",
+        "de": "E-Mail oder Telefonnummer",
+        "es": "Correo o número de teléfono"
+      },
+      "description": {
+        "en": "A phone number in international format, e.g. +33612345678.",
+        "fr": "Un numéro de téléphone au format international, ex. +33612345678.",
+        "de": "Eine Telefonnummer im internationalen Format, z. B. +4915112345678.",
+        "es": "Un número de teléfono en formato internacional, p. ej. +34612345678."
+      },
+      "placeholder": {
+        "en": "e.g. you@example.com",
+        "fr": "ex. vous@exemple.fr",
+        "de": "z. B. sie@beispiel.de",
+        "es": "p. ej. usted@ejemplo.es"
+      },
+      "required": true
+    },
+    {
+      "key": "password",
+      "type": "secret",
+      "label": { "en": "Password", "fr": "Mot de passe", "de": "Passwort", "es": "Contraseña" },
+      "required": true
+    },
+    {
+      "key": "options",
+      "type": "section",
+      "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" },
+      "description": {
+        "en": "The real-time channel brings the events (lock operated, doorbell pressed) in a few seconds; the refresh interval re-reads every device in the background.",
+        "fr": "Le canal temps réel apporte les événements (serrure manœuvrée, sonnette pressée) en quelques secondes ; l'intervalle de rafraîchissement relit tous les appareils en arrière-plan.",
+        "de": "Der Echtzeitkanal liefert die Ereignisse (Schloss betätigt, Türklingel gedrückt) in wenigen Sekunden; das Aktualisierungsintervall liest alle Geräte im Hintergrund neu ein.",
+        "es": "El canal en tiempo real trae los eventos (cerradura accionada, timbre pulsado) en pocos segundos; el intervalo de actualización vuelve a leer todos los dispositivos en segundo plano."
+      }
+    },
+    {
+      "key": "realtime",
+      "type": "boolean",
+      "label": {
+        "en": "Real-time events",
+        "fr": "Événements en temps réel",
+        "de": "Echtzeit-Ereignisse",
+        "es": "Eventos en tiempo real"
+      },
+      "required": false,
+      "default": true
+    },
+    {
+      "key": "allow_unlock",
+      "type": "boolean",
+      "label": {
+        "en": "Allow unlocking from Gladys",
+        "fr": "Autoriser le déverrouillage depuis Gladys",
+        "de": "Entriegeln über Gladys erlauben",
+        "es": "Permitir el desbloqueo desde Gladys"
+      },
+      "description": {
+        "en": "When off, Gladys can lock but never unlock nor open a door.",
+        "fr": "Désactivé, Gladys peut verrouiller mais jamais déverrouiller ni ouvrir une porte.",
+        "de": "Ausgeschaltet kann Gladys verriegeln, aber nie entriegeln oder eine Tür öffnen.",
+        "es": "Desactivado, Gladys puede bloquear pero nunca desbloquear ni abrir una puerta."
+      },
+      "required": false,
+      "default": true
+    },
+    {
+      "key": "poll_frequency",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de rafraîchissement (s)",
+        "de": "Aktualisierungsintervall (s)",
+        "es": "Intervalo de actualización (s)"
+      },
+      "description": {
+        "en": "How often every device is re-read, in seconds (one minute minimum).",
+        "fr": "Fréquence de relecture de tous les appareils, en secondes (une minute minimum).",
+        "de": "Wie oft alle Geräte neu gelesen werden, in Sekunden (mindestens eine Minute).",
+        "es": "Frecuencia de relectura de todos los dispositivos, en segundos (un minuto como mínimo)."
+      },
+      "required": false,
+      "default": 300,
+      "min": 60,
+      "max": 3600
+    }
+  ],
+  "actions": [
+    {
+      "key": "validate_code",
+      "label": {
+        "en": "Validate the code",
+        "fr": "Valider le code",
+        "de": "Code bestätigen",
+        "es": "Validar el código"
+      },
+      "description": {
+        "en": "Enter the verification code received by e-mail or SMS.",
+        "fr": "Saisissez le code de vérification reçu par e-mail ou SMS.",
+        "de": "Geben Sie den per E-Mail oder SMS erhaltenen Bestätigungscode ein.",
+        "es": "Introduzca el código de verificación recibido por correo o SMS."
+      },
+      "timeout_seconds": 60,
+      "fields": [
+        {
+          "key": "code",
+          "type": "string",
+          "label": { "en": "Code", "fr": "Code", "de": "Code", "es": "Código" },
+          "placeholder": {
+            "en": "e.g. 123456",
+            "fr": "ex. 123456",
+            "de": "z. B. 123456",
+            "es": "p. ej. 123456"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "key": "send_code",
+      "label": {
+        "en": "Send a new code",
+        "fr": "Envoyer un nouveau code",
+        "de": "Neuen Code senden",
+        "es": "Enviar un código nuevo"
+      },
+      "timeout_seconds": 30
+    },
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 60
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "lock_operated",
+      "label": {
+        "en": "Lock operated",
+        "fr": "Serrure manœuvrée",
+        "de": "Schloss betätigt",
+        "es": "Cerradura accionada"
+      },
+      "description": {
+        "en": "A lock was locked, unlocked or opened — by whom and how.",
+        "fr": "Une serrure a été verrouillée, déverrouillée ou ouverte — par qui et comment.",
+        "de": "Ein Schloss wurde verriegelt, entriegelt oder geöffnet — von wem und wie.",
+        "es": "Una cerradura se ha bloqueado, desbloqueado o abierto — por quién y cómo."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Lock", "fr": "Serrure", "de": "Schloss", "es": "Cerradura" }
+        },
+        {
+          "key": "action",
+          "type": "multi_select",
+          "label": { "en": "Action", "fr": "Action", "de": "Aktion", "es": "Acción" },
+          "options": [
+            {
+              "value": "lock",
+              "label": {
+                "en": "Locked",
+                "fr": "Verrouillée",
+                "de": "Verriegelt",
+                "es": "Bloqueada"
+              }
+            },
+            {
+              "value": "unlock",
+              "label": {
+                "en": "Unlocked",
+                "fr": "Déverrouillée",
+                "de": "Entriegelt",
+                "es": "Desbloqueada"
+              }
+            },
+            {
+              "value": "unlatch",
+              "label": {
+                "en": "Opened (unlatched)",
+                "fr": "Ouverte (pêne tiré)",
+                "de": "Geöffnet (Falle gezogen)",
+                "es": "Abierta (pestillo retraído)"
+              }
+            }
+          ]
+        },
+        {
+          "key": "method",
+          "type": "multi_select",
+          "label": { "en": "How", "fr": "Comment", "de": "Wie", "es": "Cómo" },
+          "options": [
+            {
+              "value": "app",
+              "label": {
+                "en": "App (Bluetooth)",
+                "fr": "Application (Bluetooth)",
+                "de": "App (Bluetooth)",
+                "es": "App (Bluetooth)"
+              }
+            },
+            {
+              "value": "remote",
+              "label": {
+                "en": "Remotely (Wi-Fi)",
+                "fr": "À distance (Wi-Fi)",
+                "de": "Aus der Ferne (WLAN)",
+                "es": "A distancia (Wi-Fi)"
+              }
+            },
+            {
+              "value": "keypad",
+              "label": { "en": "Keypad", "fr": "Clavier", "de": "Tastatur", "es": "Teclado" }
+            },
+            {
+              "value": "manual",
+              "label": { "en": "By hand", "fr": "À la main", "de": "Von Hand", "es": "A mano" }
+            },
+            {
+              "value": "auto",
+              "label": {
+                "en": "Auto-lock",
+                "fr": "Verrouillage automatique",
+                "de": "Automatische Verriegelung",
+                "es": "Bloqueo automático"
+              }
+            },
+            {
+              "value": "fingerprint",
+              "label": {
+                "en": "Fingerprint",
+                "fr": "Empreinte digitale",
+                "de": "Fingerabdruck",
+                "es": "Huella dactilar"
+              }
+            },
+            {
+              "value": "tag",
+              "label": {
+                "en": "Key tag / card",
+                "fr": "Badge / carte",
+                "de": "Schlüsselanhänger / Karte",
+                "es": "Llavero / tarjeta"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "action",
+          "type": "string",
+          "label": { "en": "Action", "fr": "Action", "de": "Aktion", "es": "Acción" }
+        },
+        {
+          "key": "method",
+          "type": "string",
+          "label": { "en": "How", "fr": "Comment", "de": "Wie", "es": "Cómo" }
+        },
+        {
+          "key": "user",
+          "type": "string",
+          "label": {
+            "en": "Who (user name)",
+            "fr": "Qui (nom de l'utilisateur)",
+            "de": "Wer (Benutzername)",
+            "es": "Quién (nombre del usuario)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "lock_jammed",
+      "label": {
+        "en": "Lock jammed",
+        "fr": "Serrure bloquée",
+        "de": "Schloss blockiert",
+        "es": "Cerradura atascada"
+      },
+      "description": {
+        "en": "The bolt of a lock could not complete its motion.",
+        "fr": "Le pêne d'une serrure n'a pas pu terminer sa course.",
+        "de": "Der Riegel eines Schlosses konnte seine Bewegung nicht beenden.",
+        "es": "El cerrojo de una cerradura no ha podido completar su recorrido."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Lock", "fr": "Serrure", "de": "Schloss", "es": "Cerradura" }
+        }
+      ]
+    },
+    {
+      "key": "doorbell_pressed",
+      "label": {
+        "en": "Doorbell pressed",
+        "fr": "Sonnette pressée",
+        "de": "Türklingel gedrückt",
+        "es": "Timbre pulsado"
+      },
+      "description": {
+        "en": "Someone pressed the button of a video doorbell.",
+        "fr": "Quelqu'un a appuyé sur le bouton d'une sonnette vidéo.",
+        "de": "Jemand hat den Knopf einer Video-Türklingel gedrückt.",
+        "es": "Alguien ha pulsado el botón de un videoportero."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Doorbell", "fr": "Sonnette", "de": "Türklingel", "es": "Timbre" }
+        }
+      ]
+    },
+    {
+      "key": "doorbell_motion",
+      "label": {
+        "en": "Motion at the doorbell",
+        "fr": "Mouvement devant la sonnette",
+        "de": "Bewegung an der Türklingel",
+        "es": "Movimiento ante el timbre"
+      },
+      "description": {
+        "en": "A video doorbell detected motion.",
+        "fr": "Une sonnette vidéo a détecté un mouvement.",
+        "de": "Eine Video-Türklingel hat eine Bewegung erkannt.",
+        "es": "Un videoportero ha detectado movimiento."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Doorbell", "fr": "Sonnette", "de": "Türklingel", "es": "Timbre" }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "lock_door",
+      "label": {
+        "en": "Lock a door",
+        "fr": "Verrouiller une porte",
+        "de": "Eine Tür verriegeln",
+        "es": "Bloquear una puerta"
+      },
+      "description": {
+        "en": "Lock an August / Yale lock remotely.",
+        "fr": "Verrouille à distance une serrure August / Yale.",
+        "de": "Verriegelt ein August-/Yale-Schloss aus der Ferne.",
+        "es": "Bloquea a distancia una cerradura August / Yale."
+      },
+      "timeout_seconds": 75,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Lock", "fr": "Serrure", "de": "Schloss", "es": "Cerradura" },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "success",
+          "type": "boolean",
+          "label": { "en": "Succeeded", "fr": "Réussi", "de": "Erfolgreich", "es": "Correcto" }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Lock state",
+            "fr": "État de la serrure",
+            "de": "Zustand des Schlosses",
+            "es": "Estado de la cerradura"
+          }
+        }
+      ]
+    },
+    {
+      "key": "unlock_door",
+      "label": {
+        "en": "Unlock a door",
+        "fr": "Déverrouiller une porte",
+        "de": "Eine Tür entriegeln",
+        "es": "Desbloquear una puerta"
+      },
+      "description": {
+        "en": "Unlock an August / Yale lock remotely (if allowed in the configuration).",
+        "fr": "Déverrouille à distance une serrure August / Yale (si autorisé dans la configuration).",
+        "de": "Entriegelt ein August-/Yale-Schloss aus der Ferne (falls in der Konfiguration erlaubt).",
+        "es": "Desbloquea a distancia una cerradura August / Yale (si está permitido en la configuración)."
+      },
+      "timeout_seconds": 75,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Lock", "fr": "Serrure", "de": "Schloss", "es": "Cerradura" },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "success",
+          "type": "boolean",
+          "label": { "en": "Succeeded", "fr": "Réussi", "de": "Erfolgreich", "es": "Correcto" }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Lock state",
+            "fr": "État de la serrure",
+            "de": "Zustand des Schlosses",
+            "es": "Estado de la cerradura"
+          }
+        }
+      ]
+    },
+    {
+      "key": "unlatch_door",
+      "label": {
+        "en": "Open a door (unlatch)",
+        "fr": "Ouvrir une porte (tirer le pêne)",
+        "de": "Eine Tür öffnen (Falle ziehen)",
+        "es": "Abrir una puerta (retraer el pestillo)"
+      },
+      "description": {
+        "en": "Unlock and pull the latch, for the locks that support it (Yale Linus…).",
+        "fr": "Déverrouille et tire le pêne, pour les serrures qui le permettent (Yale Linus…).",
+        "de": "Entriegelt und zieht die Falle, bei Schlössern, die das können (Yale Linus…).",
+        "es": "Desbloquea y retrae el pestillo, en las cerraduras que lo permiten (Yale Linus…)."
+      },
+      "timeout_seconds": 75,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Lock", "fr": "Serrure", "de": "Schloss", "es": "Cerradura" },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "success",
+          "type": "boolean",
+          "label": { "en": "Succeeded", "fr": "Réussi", "de": "Erfolgreich", "es": "Correcto" }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Lock state",
+            "fr": "État de la serrure",
+            "de": "Zustand des Schlosses",
+            "es": "Estado de la cerradura"
+          }
+        }
+      ]
+    },
+    {
+      "key": "refresh_doorbell_image",
+      "label": {
+        "en": "Capture a doorbell image",
+        "fr": "Capturer une image de la sonnette",
+        "de": "Bild der Türklingel aufnehmen",
+        "es": "Capturar una imagen del timbre"
+      },
+      "description": {
+        "en": "Wake a video doorbell up so it uploads a fresh image.",
+        "fr": "Réveille une sonnette vidéo pour qu'elle envoie une nouvelle image.",
+        "de": "Weckt eine Video-Türklingel, damit sie ein neues Bild hochlädt.",
+        "es": "Despierta un videoportero para que envíe una imagen nueva."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Doorbell", "fr": "Sonnette", "de": "Türklingel", "es": "Timbre" },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "success",
+          "type": "boolean",
+          "label": { "en": "Succeeded", "fr": "Réussi", "de": "Erfolgreich", "es": "Correcto" }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "lock",
+      "label": { "en": "Smart lock", "fr": "Serrure", "de": "Smart Lock", "es": "Cerradura" },
+      "description": {
+        "en": "One lock with its controls, or an overview of every lock.",
+        "fr": "Une serrure et ses commandes, ou la vue d'ensemble de toutes les serrures.",
+        "de": "Ein Schloss mit Steuerung oder eine Übersicht aller Schlösser.",
+        "es": "Una cerradura con sus controles, o un resumen de todas las cerraduras."
+      },
+      "icon": "lock",
+      "action_timeout_seconds": 75,
+      "settings": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Lock (empty: every lock)",
+            "fr": "Serrure (vide : toutes)",
+            "de": "Schloss (leer: alle)",
+            "es": "Cerradura (vacío: todas)"
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "doorbell",
+      "label": {
+        "en": "Video doorbell",
+        "fr": "Sonnette vidéo",
+        "de": "Video-Türklingel",
+        "es": "Videoportero"
+      },
+      "description": {
+        "en": "Latest image, last ring and last motion of a doorbell.",
+        "fr": "Dernière image, dernier coup de sonnette et dernier mouvement.",
+        "de": "Letztes Bild, letztes Klingeln und letzte Bewegung einer Türklingel.",
+        "es": "Última imagen, último timbrazo y último movimiento de un timbre."
+      },
+      "icon": "bell",
+      "action_timeout_seconds": 30,
+      "settings": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": { "en": "Doorbell", "fr": "Sonnette", "de": "Türklingel", "es": "Timbre" },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "activity",
+      "label": {
+        "en": "Door activity",
+        "fr": "Activité des portes",
+        "de": "Türaktivität",
+        "es": "Actividad de puertas"
+      },
+      "description": {
+        "en": "Who locked or unlocked which door, how and when.",
+        "fr": "Qui a verrouillé ou déverrouillé quelle porte, comment et quand.",
+        "de": "Wer welche Tür wie und wann verriegelt oder entriegelt hat.",
+        "es": "Quién bloqueó o desbloqueó qué puerta, cómo y cuándo."
+      },
+      "icon": "list"
+    }
+  ]
+}
