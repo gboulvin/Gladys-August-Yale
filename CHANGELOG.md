@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-16
+
 ### Added
 
 - First release of the August / Yale integration (Gladys 5.1.0 or later),
@@ -29,4 +31,5 @@ the notes of the version's GitHub Release.
 - An option to forbid unlocking from Gladys.
 - Texts and documentation in English, French, German and Spanish.
 
-[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/commits/main
+[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/gboulvin/Gladys-August-Yale/releases/tag/v1.0.0
