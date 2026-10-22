@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-22
+
 ### Security
 
 - The image is rebuilt on the latest `node:24-alpine` (Node.js and Alpine
@@ -36,5 +38,6 @@ the notes of the version's GitHub Release.
 - An option to forbid unlocking from Gladys.
 - Texts and documentation in English, French, German and Spanish.
 
-[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/gboulvin/Gladys-August-Yale/releases/tag/v1.0.0
