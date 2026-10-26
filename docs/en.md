@@ -31,7 +31,7 @@ Yale Unity, August View and Yale Smart Video Doorbell…
 
 ## Requirements
 
-- Gladys Assistant **5.1 or later**.
+- Gladys Assistant **5.3 or later**.
 - An account in the **August**, **Yale Access** or **Yale Home** app, with your
   devices already set up in it.
 - To see the state live and to operate a lock from Gladys, the lock must be

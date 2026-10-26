@@ -1,7 +1,7 @@
 # August / Yale for Gladys Assistant
 
 External integration bringing **August** and **Yale** smart locks and video
-doorbells into [Gladys Assistant](https://gladysassistant.com) (5.1+), through
+doorbells into [Gladys Assistant](https://gladysassistant.com) (5.3+), through
 the August / Yale cloud. Built on the official
 [integration template](https://github.com/GladysAssistant/integration-template-js)
 and [SDK](https://github.com/GladysAssistant/integration-sdk-js).

@@ -34,7 +34,7 @@ Video Doorbell…
 
 ## Prérequis
 
-- Gladys Assistant **5.1 ou plus récent**.
+- Gladys Assistant **5.3 ou plus récent**.
 - Un compte dans l'application **August**, **Yale Access** ou **Yale Home**, avec
   vos appareils déjà installés.
 - Pour suivre l'état en direct et piloter une serrure depuis Gladys, la serrure
