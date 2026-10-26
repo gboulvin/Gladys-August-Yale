@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-26
+
 ### Changed
 
 - Requires Gladys 5.3.0 or later: the manifest declares search keywords for
@@ -44,6 +46,7 @@ the notes of the version's GitHub Release.
 - An option to forbid unlocking from Gladys.
 - Texts and documentation in English, French, German and Spanish.
 
-[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/gboulvin/Gladys-August-Yale/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/gboulvin/Gladys-August-Yale/releases/tag/v1.0.0
