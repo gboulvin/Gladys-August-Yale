@@ -34,7 +34,7 @@ Lock 2, Yale Conexis L2, Yale Unity, August View, Yale Smart Video Doorbell…
 
 ## Requisitos
 
-- Gladys Assistant **5.1 o posterior**.
+- Gladys Assistant **5.3 o posterior**.
 - Una cuenta en la app **August**, **Yale Access** o **Yale Home**, con sus
   dispositivos ya instalados.
 - Para ver el estado en directo y controlar una cerradura desde Gladys, la
