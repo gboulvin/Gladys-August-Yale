@@ -44,6 +44,9 @@ export function buildDoorbellDevice(gladys, doorbell) {
       external_id: ids.feature(DOORBELL_FEATURES.CAMERA),
       category: DEVICE_FEATURE_CATEGORIES.CAMERA,
       type: DEVICE_FEATURE_TYPES.CAMERA.IMAGE,
+      // No range, but Gladys stores min / max as NOT NULL columns.
+      min: 0,
+      max: 0,
       read_only: true,
       has_feedback: false,
       keep_history: false,
